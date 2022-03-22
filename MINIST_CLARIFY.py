@@ -28,17 +28,6 @@ def img_show(fileRoad,index):
     pilImg = Image.fromarray(np.uint8(img))
     pilImg.show()
 
-def img_show(fileRoad,index):
-    datas = read_csv(fileRoad)
-    data = [float(i) for i in datas[index].split(',')]
-    if len(data) == 785:
-        content = data[1:]
-    elif len(data) == 784:
-        content = data
-    img = np.array(content).reshape(28, 28)
-    pilImg = Image.fromarray(np.uint8(img))
-    pilImg.show()
-
 def img_show(fileRoad):
     datas = read_csv(fileRoad)
     dataAllNum = len(datas)
