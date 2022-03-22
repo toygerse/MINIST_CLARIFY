@@ -178,8 +178,38 @@ plt.show()
 </div>  
 
 发现随着epoch增加loss下降越来越不明显，增加epoch对改进模型效果不大  
-
-### 1.5 完整代码
+  
+### 1.5 用模型对test.csv进行预测
+编写准确率测试函数，测试读入模型准确率
+```python
+def test_existModle(myNet):
+    trainData = Mydata(trainRoad)
+    trainLoader = DataLoader(trainData, batch_size=150, shuffle=True)
+    for input,label in trainLoader:
+        output = myNet(input)
+        count_accuracy(torch.max(output, 1)[1].numpy(), label.numpy())
+    print('accuracy = %.2f%%' % (float(correctNum * 100) / dataNum))
+```
+编写预测函数，通过读入已训练模型对test.csv进行预测，结果存为sample_submission_predict.csv
+```python
+def predict(myNet):
+    try:
+        pd.read_csv(predictRoad, encoding='utf-8')
+        print("file sample_submission_predict.csv exist")
+    except:
+        sampleForm = pd.read_csv(sampleRoad, encoding='utf-8')
+        dataset =Mydata(testRoad)
+        testdata = DataLoader(dataset,batch_size=1,shuffle=False)
+        print("start to predict sample_submission.csv and save...")
+        for i,data in enumerate(testdata):
+            output = myNet(data)
+            result = torch.max(output, 1)[1].item()
+            sampleForm['Label'].loc[i] = result
+        sampleForm.to_csv(predictRoad, encoding='utf-8', index=False)
+        print("complete save sample_submission_predict.csv")
+```
+程序先尝试读取MINIST_model.pkl模型文件，若没有则进行训练
+### 1.6 完整代码
   
 ```python
 import numpy as np
