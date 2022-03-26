@@ -179,7 +179,7 @@ plt.show()
 
 发现随着epoch增加loss下降越来越不明显，增加epoch对改进模型效果不大  
   
-### 1.5 用模型对test.csv进行预测
+### 1.6 用模型对test.csv进行预测
 编写准确率测试函数，测试读入模型准确率
 ```python
 def test_existModle(myNet):
@@ -209,7 +209,7 @@ def predict(myNet):
         print("complete save sample_submission_predict.csv")
 ```
 程序先尝试读取MINIST_model.pkl模型文件，若没有则进行训练
-### 1.6 完整代码
+### 1.7 完整代码
   
 ```python
 import numpy as np
